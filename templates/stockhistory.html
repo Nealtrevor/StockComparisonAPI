@@ -1,0 +1,50 @@
+<!doctype html>
+<html>
+
+	
+	
+	<head>
+    	<link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles/styles.css') }}">
+		<title>Stock Comparison Tool</title>
+	</head>
+	
+	<body style="font-family:arial, sans-serif", style="width: 70%">
+		<center>
+			<h1 style="padding:10px">Stock Comparison Tool</h1>
+			
+			<h3>Enter a Stock Ticker Symbol to compare the stock history</h3>
+
+				<form action="stockhistory" method="POST" align="center">
+						
+					<b>Stock Ticker Symbol: </b>	
+					<input id="text_field" name="ticker" type="text" required> 				
+					<center><input id="submit_button" type="Submit" class="push_button blue"></center>
+					
+				</form>
+				<form action="clear" method="POST" align="center">
+					<center><input id="submit_button" type="Submit" value="Clear List" class="push_button blue"></center>	
+				</form>
+			<p>
+			<div id="chart_wk" class="chart_wk"></div>
+			<div id="chart_yr" class="chart_yr"></div>
+			<div id="chart_5yr" class="chart_5yr"></div>
+    		
+				
+				<i>Data provided by <a href="https://www.yahoofinanceapi.com/l">Yahoo Finance API</a></i>
+			</p>
+		</center>
+	</body>
+	
+	<script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+	<script type="text/javascript">
+		var graph_week = {{graph_week | safe}};
+		Plotly.plot('chart_wk',graph_week,{});
+		
+		var graph_year = {{graph_year | safe}};
+		Plotly.plot('chart_yr',graph_year,{})
+		
+		var graph_5yr = {{graph_5yr | safe}};
+		Plotly.plot('chart_5yr',graph_5yr,{}) 
+			
+	</script>
+</html>

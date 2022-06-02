@@ -3,6 +3,9 @@
 Created on Sun May 29 11:23:24 2022
 
 @author: nealt
+
+TODO:  Add error handling
+add documentation to the top of each file
 """
 import pandas as pd
 import matplotlib.pyplot as plt

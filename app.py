@@ -31,20 +31,16 @@ import pandas as pd
 import matplotlib.pyplot as plt
 from datetime import datetime, timedelta
 plt.style.use('seaborn')
-#import seaborn as sns
 import yfinance as yf
 import flask
 from flask import Flask, render_template # for web app
 from flask import Response
 
 import io
-#import random
 import plotly
 import plotly.express as px
 import json # for graph plotting in website
 from stocks import *
-
-
 
 
 ####################
@@ -54,32 +50,41 @@ from stocks import *
 
 app = Flask(__name__)
 
+
+#################
+# Flask Routes
+#################
 @app.route('/' )
 def run_app():
     return render_template('index.html')
 
-
     
 @app.route('/stockhistory', methods = ['POST'])
 def stockhistory():
-    
-    ticker = flask.request.form['ticker'].upper()
-    #Stock.stock_analysis(ticker)
+    try:
+        ticker = flask.request.form['ticker'].upper()
+    except Exception as e:
+            print("Error. Exception found: "+str(e))
+    #error handling included in stock class functions
     Stock.stock_append(ticker)
     graph_year=Stock.stock_data_yr()
     graph_week=Stock.stock_data_wk()
     graph_5yr=Stock.stock_data_5yr()
     return render_template('stockhistory.html',graph_year=graph_year,graph_week=graph_week,graph_5yr=graph_5yr)
-
-    
+  
 
 @app.route('/clear', methods = ['POST'])
 def clear():
+    try:
+        stock_symbol_list.clear()
+        stock_symbol_list.append("SPY")
+        return render_template('clear.html')
+    except Exception as e:
+            print("Error. Exception found: "+str(e))
 
-    stock_symbol_list.clear()
-    stock_symbol_list.append("SPY")
-    return render_template('clear.html')
-    
-#run flask server
+####################
+# RUN FLASK APP ON http://127.0.0.1:5000/  
+# Deployed online at : https://stock-comparison-tool-yahoofin.herokuapp.com/
+####################
 if __name__ == '__main__':
     app.run()

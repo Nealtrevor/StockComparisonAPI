@@ -1,9 +1,27 @@
-# -*- coding: utf-8 -*-
 """
-Created on Sun May 29 14:28:33 2022
+Neal Trevor
 
-@author: nealt
+ICT 4370-1
 
+05/29/2022
+
+PORTFOLIO PROGRAMMING ASSIGNMENT - IMPROVING THE STOCK PROBLEM WITH ADDITIONAL FUNCTIONALITY:
+Python Files:
+App.py:  the main file that executes code.  It starts the flask app server and imports the required functions from stocks.py
+Stocks.py:  This file holds the stock class and contains all of the functions to import from the yahoo finance api, manipulate in pandas, then plot with plotly.
+
+Templates:
+stockhistory.html, index.html, clear.html :  These files provides a basic browser UI that allows the user to add stocks to the comparison.  It displays 3 line charts that make up one dashboard.  1 week, 1 year and 5 year stock history comparison.  
+It also allows the user to clear the list of stocks and only compare one stock with the SPY.
+
+Deployment files:
+Procfile:  This file is required for deployment on heroku. it tells heroku to use the gunicorn server, which is a multithreaded flask app server. (web: gunicorn app:app)
+requirements.txt :  This file tells heroku which libraries need to be installed in the cloud environment for the python code to run.  It does all the pip installs during the deployment.
+gitignore: created when uploaded to github.  Can be used to hide api keys.
+
+Deployed online at : https://stock-comparison-tool-yahoofin.herokuapp.com/ (it may take a second to load the first time because it is a free server that goes idle when not in use.)
+
+Github files: https://github.com/Nealtrevor/StockComparisonAPI
 """
 import pandas as pd
 import matplotlib.pyplot as plt
